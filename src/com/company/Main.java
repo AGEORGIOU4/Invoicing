@@ -1,3 +1,7 @@
+/**
+ * Andreas Georgiou
+ **/
+
 package com.company;
 
 import java.util.Vector;
@@ -16,6 +20,7 @@ public class Main {
         Service myService = new Service("service", "description", 50);
         Vector<Service> listOfServices = new Vector<>();
         listOfServices.add(myService);
+        myAccount.setServices(listOfServices);
 
         // Items
         Item myItem = new Item(myService, 2);
@@ -23,14 +28,11 @@ public class Main {
         listOfItems.add(myItem);
 
         // Invoices
-        Invoice myInvoice = new Invoice(1,System.currentTimeMillis(), listOfItems);
+        Invoice myInvoice = new Invoice(1, System.currentTimeMillis(), listOfItems);
 
         Vector<Invoice> listOfInvoices = new Vector<>();
         listOfInvoices.add(myInvoice);
         myAccount.setInvoices(listOfInvoices);
-
-        myAccount.setServices(listOfServices);
-        myAccount.calculateBalance(listOfInvoices);
 
         myAccount.generateCustomerInvoice();
 
@@ -75,9 +77,9 @@ public class Main {
         listOfItems2.add(myItem6);
 
         // Invoices
-        Invoice myInvoice1 = new Invoice(1,System.currentTimeMillis(), listOfItems1);
-        Invoice myInvoice2 = new Invoice(2,System.currentTimeMillis(), listOfItems2);
-        Invoice myInvoice3 = new Invoice(3,System.currentTimeMillis(), listOfItems1);
+        Invoice myInvoice1 = new Invoice(1, System.currentTimeMillis(), listOfItems1);
+        Invoice myInvoice2 = new Invoice(2, System.currentTimeMillis(), listOfItems2);
+        Invoice myInvoice3 = new Invoice(3, System.currentTimeMillis(), listOfItems1);
 
         // List of Invoices
         listOfInvoices1.add(myInvoice1);
@@ -99,8 +101,57 @@ public class Main {
 
         account.generateCustomerInvoice();
 
+        // Clear account balance
         account.clearBalance();
 
         account.generateCustomerInvoice();
+
+        Customer testCustomer = new Customer("Andreas", "Georgiou", "Georgiou", "Archiepiskopou Makariou C' 111",
+                "+35799131666");
+
+        Account testAccount = new Account(177, testCustomer);
+
+        // Services
+        Service testService1 = new Service("Test Service 1", "Simple Service 1", 12);
+        Service testService2 = new Service("Test Service 2", "Simple Service 2", 50);
+
+        // Populate a vector of services
+        Vector<Service> testListOfServices = new Vector<>();
+        testListOfServices.add(testService1);
+        testListOfServices.add(testService2);
+
+        // Items
+        Item testItem1 = new Item(testService1, 2);
+        Item testItem2 = new Item(testService2, 3);
+
+        // Populate a vector of items
+        Vector<Item> testListOfItems = new Vector<>();
+        testListOfItems.add(testItem1);
+        testListOfItems.add(testItem2);
+
+        // Invoices
+        Invoice testInvoice = new Invoice(998, System.currentTimeMillis(), testListOfItems);
+
+        Vector<Invoice> testListOfInvoices = new Vector<>();
+        testListOfInvoices.add(testInvoice);
+
+        // Add services and invoices on the account
+        testAccount.setServices(testListOfServices);
+        testAccount.setInvoices(testListOfInvoices);
+
+        testAccount.generateCustomerInvoice();
+
+
+        Service testService3 = new Service("Test Service 3", "Simple Service 3", 64.50f);
+        testListOfServices.add(testService3);
+
+        Item testItem3 = new Item(testService3, 3);
+        testListOfItems.add(testItem3);
+
+        Invoice testInvoice2 = new Invoice(999, System.currentTimeMillis(), testListOfItems);
+        testListOfInvoices.add(testInvoice2);
+        testAccount.setInvoices(testListOfInvoices);
+
+        testAccount.generateCustomerInvoice();
     }
 }

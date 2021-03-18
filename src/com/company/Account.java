@@ -9,7 +9,7 @@ public class Account {
     // Private class members
     private int number;
     private Customer customer;
-    private int balance = 0;
+    private float balance = 0;
     private Vector<Service> services;
     private Vector<Invoice> invoices;
 
@@ -49,11 +49,11 @@ public class Account {
         this.customer = customer;
     }
 
-    public int getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 
@@ -71,6 +71,7 @@ public class Account {
 
     public void setInvoices(Vector<Invoice> invoices) {
         this.invoices = invoices;
+        calculateBalance(invoices);
     }
 
     // Functions
@@ -95,17 +96,16 @@ public class Account {
     }
 
     // Extra Points
-    public void generateCustomerInvoice() {
+    public boolean generateCustomerInvoice() {
         // Customer Info
         String name = getCustomer().getFirstName() + " " + getCustomer().getMiddleName() + " " + getCustomer().getLastName();
         String address = getCustomer().getAddress();
         String phone = getCustomer().getPhone();
 
         StringBuilder invoice = new StringBuilder();
-        invoice.append("==============\nName: ").append(name).append("\nAddress: ").append(address).append("\nPhone: ").append(phone).append("\nServices: \n");
+        invoice.append("\n\n==========================================\nName: ").append(name).append("\nAddress: ").append(address).append("\nPhone: ").append(phone).append("\nServices: \n");
 
         // Convert Current Milliseconds to Readable date
-        long milliseconds = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
 
         // Append services and items info
@@ -117,7 +117,7 @@ public class Account {
                 invoice.append(sdf.format(dateCreated)).append(" | ");
                 invoice.append(getInvoices().get(i).getItems().get(j).getService().getName()).append(" | ");
                 invoice.append(getInvoices().get(i).getItems().get(j).getService().getDescription()).append(" | ");
-                invoice.append(getInvoices().get(i).getItems().get(j).getQuantity()).append(" | ");
+                invoice.append("x ").append(getInvoices().get(i).getItems().get(j).getQuantity()).append(" | ");
                 invoice.append(getInvoices().get(i).getItems().get(j).getService().getPrice()).append("\n");
             }
         }
@@ -132,8 +132,7 @@ public class Account {
                 invoice.append(" , #");
             }
         }
-
-
         System.out.println(invoice);
+        return true;
     }
 }

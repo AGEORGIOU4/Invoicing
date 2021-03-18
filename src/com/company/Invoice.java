@@ -11,7 +11,7 @@ public class Invoice {
     private Vector<Item> items;
     private float totalAmount;
 
-    // Public class members
+    // Constructor
     public Invoice(int number, long dateCreated, Vector<Item> items) {
         this.number = number;
         this.dateCreated = dateCreated;
@@ -21,6 +21,7 @@ public class Invoice {
         calculateTotalAmount(items);
     }
 
+    // Getters & Setters
     public int getNumber() {
         return number;
     }
@@ -53,6 +54,7 @@ public class Invoice {
         this.totalAmount = totalAmount;
     }
 
+    // Functions
     public void calculateTotalAmount(Vector<Item> items) {
         // Auto-calculated (Sum of item amounts)
         if (this.items == items) { // Check if new items are added on
@@ -65,5 +67,10 @@ public class Invoice {
                 this.totalAmount += item.getAmount();
             }
         }
+    }
+
+    public void clearInvoice()
+    {
+        this.items.clear();
     }
 }
